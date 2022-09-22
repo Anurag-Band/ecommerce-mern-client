@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { api } from "../../api/backend-config";
+import axios from "axios";
 import { STATUSES } from "../../utils/STATUSES";
 
 const initialState = {
@@ -70,7 +70,9 @@ export default cartSlice.reducer;
 
 // for fetchCartItems ->>
 export const fetchCartItems = createAsyncThunk("cartItems/fetch", async () => {
-  const { data } = await api.get(`/cart`);
+  const { data } = await axios.get(
+    `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart`
+  );
   return data;
 });
 
@@ -81,7 +83,11 @@ export const addToCart = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await api.post(`/cart`, { itemId }, config);
+      const { data } = await axios.post(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart`,
+        { itemId },
+        config
+      );
 
       return data;
     } catch (error) {
@@ -95,7 +101,9 @@ export const removeFromCart = createAsyncThunk(
   "cartItems/remove",
   async (itemId, { rejectWithValue }) => {
     try {
-      const { data } = await api.delete(`/cart?itemId=${itemId}`);
+      const { data } = await axios.delete(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart?itemId=${itemId}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -108,7 +116,9 @@ export const decreaseCartItemQuantity = createAsyncThunk(
   "cartItems/decreaseItemQuantity",
   async (itemId, { rejectWithValue }) => {
     try {
-      const { data } = await api.put(`/cart?itemId=${itemId}`);
+      const { data } = await axios.put(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart?itemId=${itemId}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

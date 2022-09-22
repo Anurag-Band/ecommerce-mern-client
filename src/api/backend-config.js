@@ -1,5 +1,7 @@
 import axios from "axios";
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: "https://cash-n-carry-store-backend.herokuapp.com/api/v1",
 });
+
+export default api;

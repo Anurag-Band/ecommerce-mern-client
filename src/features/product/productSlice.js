@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { api } from "../../api/backend-config";
+import axios from "axios";
 import { STATUSES } from "../../utils/STATUSES";
 
 const initialState = {
@@ -162,10 +162,10 @@ export const fetchAllProducts =
   async (dispatch) => {
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      let LINK = `/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let LINK = `https://cash-n-carry-store-backend.herokuapp.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
       if (category) {
-        LINK = `/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        LINK = `https://cash-n-carry-store-backend.herokuapp.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
 
       const res = await fetch(LINK);
@@ -177,7 +177,6 @@ export const fetchAllProducts =
 
       dispatch(setStatus(STATUSES.IDLE));
     } catch (error) {
-      console.log(error);
       dispatch(setStatus(STATUSES.ERROR));
     }
   };
@@ -186,7 +185,9 @@ export const fetchAllProducts =
 export const fetchProductDetails = createAsyncThunk(
   "productDetails/fetch",
   async (id) => {
-    const { data } = await api.get(`/product/${id}`);
+    const { data } = await axios.get(
+      `https://cash-n-carry-store-backend.herokuapp.com/api/v1/product/${id}`
+    );
     return data;
   }
 );
@@ -200,8 +201,8 @@ export const addReview = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await api.put(
-        "/review",
+      const { data } = await axios.put(
+        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/review",
         { rating, comment, productId },
         config
       );
@@ -217,7 +218,9 @@ export const fetchSingleProductReviews = createAsyncThunk(
   "singleProductReviews/fetch",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/reviews?id=${productId}`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/reviews?id=${productId}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -230,7 +233,9 @@ export const userDeleteReview = createAsyncThunk(
   "user/review/delete",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await api.delete(`/review?productId=${productId}`);
+      const { data } = await axios.delete(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/review?productId=${productId}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -245,7 +250,9 @@ export const adminGetAllProducts = createAsyncThunk(
   "admin/products/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/admin/products`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/products`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -258,7 +265,9 @@ export const adminGetProductReviews = createAsyncThunk(
   "admin/reviews/fetch",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/admin/reviews?id=${productId}`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/reviews?id=${productId}`
+      );
 
       return data;
     } catch (error) {
@@ -272,7 +281,9 @@ export const adminDeleteProduct = createAsyncThunk(
   "admin/product/delete",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await api.delete(`/admin/product/${id}`);
+      const { data } = await axios.delete(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/product/${id}`
+      );
 
       return data;
     } catch (error) {
@@ -286,8 +297,8 @@ export const adminDeleteReview = createAsyncThunk(
   "admin/review/delete",
   async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
-      const { data } = await api.delete(
-        `/admin/review?reviewId=${reviewId}&productId=${productId}`
+      const { data } = await axios.delete(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/review?reviewId=${reviewId}&productId=${productId}`
       );
       return data;
     } catch (error) {

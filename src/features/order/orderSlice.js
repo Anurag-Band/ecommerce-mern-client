@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from "../../api/backend-config";
+import axios from "axios";
 import { STATUSES } from "../../utils/STATUSES";
 
 const SHIPPING_INFO = "shippingInfo";
@@ -95,7 +95,11 @@ export const createOrder = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await api.post("/order/new", order, config);
+      const { data } = await axios.post(
+        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/order/new",
+        order,
+        config
+      );
 
       return data;
     } catch (error) {
@@ -109,7 +113,9 @@ export const fetchMyOrders = createAsyncThunk(
   "myorders/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/myorders`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/myorders`
+      );
 
       return data;
     } catch (error) {
@@ -123,7 +129,9 @@ export const fetchOrderDetails = createAsyncThunk(
   "order/details/fetch",
   async (orderId, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/order/?id=${orderId}`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/order/?id=${orderId}`
+      );
 
       return data;
     } catch (error) {
@@ -139,7 +147,9 @@ export const adminGetAllOrders = createAsyncThunk(
   "admin/orders/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/admin/orders`);
+      const { data } = await axios.get(
+        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/orders`
+      );
 
       return data;
     } catch (error) {
