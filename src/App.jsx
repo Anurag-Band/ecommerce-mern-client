@@ -38,7 +38,9 @@ const App = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripekey");
+    const { data } = await axios.get(
+      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/api/v1/stripekey"
+    );
 
     setStripeApiKey(data.stripekey);
   }
