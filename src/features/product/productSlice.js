@@ -168,7 +168,15 @@ export const fetchAllProducts =
         LINK = `https://mern-ecommerce-server.onrender.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
 
-      const res = await fetch(LINK);
+      const config = {
+        mode: "no-cors",
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+     },
+      }
+
+      const res = await fetch(LINK,config);
       const data = await res.json();
       dispatch(setProducts(data.products));
       dispatch(setResultPerPage(data.resultPerPage));

@@ -142,7 +142,7 @@ const authSlice = createSlice({
           state.status = STATUSES.ERROR;
           state.user = null;
           state.isAuthenticated = false;
-          state.statusMessage = action.payload.error;
+          state.statusMessage = action.payload?.error;
         }
       );
   },
@@ -155,7 +155,7 @@ export default authSlice.reducer;
 export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { "Content-Type": "application/json" }, };
     const { data } = await axios.post(
       "https://mern-ecommerce-server.onrender.com/api/v1/login",
       { email, password },

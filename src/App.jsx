@@ -38,8 +38,13 @@ const App = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
+    const config = { headers: { "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "true"
+  }, };
     const { data } = await axios.get(
-      "https://mern-ecommerce-server.onrender.com/api/v1/stripekey"
+      "https://mern-ecommerce-server.onrender.com/api/v1/stripekey",
+      {},
+      config
     );
 
     setStripeApiKey(data.stripekey);
