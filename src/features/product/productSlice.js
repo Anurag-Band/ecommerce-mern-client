@@ -162,10 +162,10 @@ export const fetchAllProducts =
   async (dispatch) => {
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      let LINK = `https://cash-n-carry-store-backend.herokuapp.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let LINK = `https://mern-ecommerce-server.onrender.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
       if (category) {
-        LINK = `https://cash-n-carry-store-backend.herokuapp.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        LINK = `https://mern-ecommerce-server.onrender.com/api/v1/products?search=${search}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
 
       const res = await fetch(LINK);
@@ -186,7 +186,7 @@ export const fetchProductDetails = createAsyncThunk(
   "productDetails/fetch",
   async (id) => {
     const { data } = await axios.get(
-      `https://cash-n-carry-store-backend.herokuapp.com/api/v1/product/${id}`
+      `https://mern-ecommerce-server.onrender.com/api/v1/product/${id}`
     );
     return data;
   }
@@ -202,7 +202,7 @@ export const addReview = createAsyncThunk(
       };
 
       const { data } = await axios.put(
-        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/review",
+        "https://mern-ecommerce-server.onrender.com/api/v1/review",
         { rating, comment, productId },
         config
       );
@@ -219,7 +219,7 @@ export const fetchSingleProductReviews = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/reviews?id=${productId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/reviews?id=${productId}`
       );
       return data;
     } catch (error) {
@@ -234,7 +234,7 @@ export const userDeleteReview = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/review?productId=${productId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/review?productId=${productId}`
       );
       return data;
     } catch (error) {
@@ -251,7 +251,7 @@ export const adminGetAllProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/products`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/products`
       );
       return data;
     } catch (error) {
@@ -266,7 +266,7 @@ export const adminGetProductReviews = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/reviews?id=${productId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/reviews?id=${productId}`
       );
 
       return data;
@@ -282,7 +282,7 @@ export const adminDeleteProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/product/${id}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/product/${id}`
       );
 
       return data;
@@ -298,7 +298,7 @@ export const adminDeleteReview = createAsyncThunk(
   async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/review?reviewId=${reviewId}&productId=${productId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/review?reviewId=${reviewId}&productId=${productId}`
       );
       return data;
     } catch (error) {

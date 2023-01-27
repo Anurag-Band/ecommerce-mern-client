@@ -157,7 +157,7 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await axios.post(
-      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/login",
+      "https://mern-ecommerce-server.onrender.com/api/v1/login",
       { email, password },
       config
     );
@@ -177,7 +177,7 @@ export const registerUser = createAsyncThunk(
     const { name, email, password, photo } = formData;
     const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await axios.post(
-      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/signup",
+      "https://mern-ecommerce-server.onrender.com/api/v1/signup",
       { name, email, password, photo },
       config
     );
@@ -195,7 +195,7 @@ export const loadUser = createAsyncThunk(
   "user/load",
   async (_, { rejectWithValue }) => {
     const { data } = await axios.get(
-      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/me"
+      "https://mern-ecommerce-server.onrender.com/api/v1/me"
     );
 
     if (data.error) {
@@ -211,7 +211,7 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     const { data } = await axios.get(
-      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/logout"
+      "https://mern-ecommerce-server.onrender.com/api/v1/logout"
     );
 
     if (data.error) {
@@ -230,7 +230,7 @@ export const updateProfile = createAsyncThunk(
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
-      "https://cash-n-carry-store-backend.herokuapp.com/api/v1/me/update",
+      "https://mern-ecommerce-server.onrender.com/api/v1/me/update",
       { name, email, photo },
       config
     );
@@ -258,7 +258,7 @@ export const updatePassword = createAsyncThunk(
       };
 
       const { data } = await axios.put(
-        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/password/update",
+        "https://mern-ecommerce-server.onrender.com/api/v1/password/update",
         formObject,
         config
       );
@@ -279,7 +279,7 @@ export const forgotPassword = createAsyncThunk(
       };
 
       const { data } = await axios.post(
-        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/password/forgot",
+        "https://mern-ecommerce-server.onrender.com/api/v1/password/forgot",
         { email },
         config
       );
@@ -300,7 +300,7 @@ export const resetPassword = createAsyncThunk(
       };
 
       const { data } = await axios.put(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/password/reset/${token}`,
+        `https://mern-ecommerce-server.onrender.com/api/v1/password/reset/${token}`,
         { password, confirmPassword },
         config
       );
@@ -319,7 +319,7 @@ export const adminGetAllUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/users`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/users`
       );
 
       return data;
@@ -335,7 +335,7 @@ export const adminDeleteUser = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/user/${userId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/user/${userId}`
       );
 
       return data;

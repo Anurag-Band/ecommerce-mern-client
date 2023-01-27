@@ -71,7 +71,7 @@ export default cartSlice.reducer;
 // for fetchCartItems ->>
 export const fetchCartItems = createAsyncThunk("cartItems/fetch", async () => {
   const { data } = await axios.get(
-    `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart`
+    `https://mern-ecommerce-server.onrender.com/api/v1/cart`
   );
   return data;
 });
@@ -84,7 +84,7 @@ export const addToCart = createAsyncThunk(
       const config = { headers: { "Content-Type": "application/json" } };
 
       const { data } = await axios.post(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart`,
+        `https://mern-ecommerce-server.onrender.com/api/v1/cart`,
         { itemId },
         config
       );
@@ -102,7 +102,7 @@ export const removeFromCart = createAsyncThunk(
   async (itemId, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart?itemId=${itemId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/cart?itemId=${itemId}`
       );
       return data;
     } catch (error) {
@@ -117,7 +117,7 @@ export const decreaseCartItemQuantity = createAsyncThunk(
   async (itemId, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/cart?itemId=${itemId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/cart?itemId=${itemId}`
       );
       return data;
     } catch (error) {

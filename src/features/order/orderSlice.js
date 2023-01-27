@@ -96,7 +96,7 @@ export const createOrder = createAsyncThunk(
       };
 
       const { data } = await axios.post(
-        "https://cash-n-carry-store-backend.herokuapp.com/api/v1/order/new",
+        "https://mern-ecommerce-server.onrender.com/api/v1/order/new",
         order,
         config
       );
@@ -114,7 +114,7 @@ export const fetchMyOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/myorders`
+        `https://mern-ecommerce-server.onrender.com/api/v1/myorders`
       );
 
       return data;
@@ -130,7 +130,7 @@ export const fetchOrderDetails = createAsyncThunk(
   async (orderId, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/order/?id=${orderId}`
+        `https://mern-ecommerce-server.onrender.com/api/v1/order/?id=${orderId}`
       );
 
       return data;
@@ -148,7 +148,7 @@ export const adminGetAllOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `https://cash-n-carry-store-backend.herokuapp.com/api/v1/admin/orders`
+        `https://mern-ecommerce-server.onrender.com/api/v1/admin/orders`
       );
 
       return data;
